@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0d1526">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1526'/%3E%3Crect x='10' y='27' width='44' height='11' rx='2' fill='%23ff7a29'/%3E%3Cpath d='M17 27v6M25 27v8M33 27v6M41 27v8M49 27v6' stroke='%230d1526' stroke-width='2'/%3E%3C/svg%3E">
+<title>Self-Measure Kit — Measure Your Space, Get a Quote-Ready Summary (Demo)</title>
+<meta name="description" content="A 6-step wizard that helps customers measure their own kitchen, closet or mudroom and send the shop a quote-ready summary. Demo with sample prices — nothing is sent anywhere.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=2">
+<link rel="canonical" href="https://marksong0917.github.io/measure-kit/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Self-Measure Kit — Measure Your Space, Get a Quote-Ready Summary (Demo)">
+<meta property="og:description" content="Measure your own kitchen, closet or mudroom in about 5 minutes and send the shop a quote-ready summary. Sample data only.">
+<meta property="og:url" content="https://marksong0917.github.io/measure-kit/">
+<meta property="og:image" content="https://marksong0917.github.io/og.png">
+</head>
+<body>
+
+<div class="demo-banner">This is a <strong>demo</strong> for Maple Works Studio — a sample shop. Nothing you enter is sent anywhere.</div>
+
+<header class="top">
+  <a class="brand" href="https://marksong0917.github.io/measure-kit/">Maple Works Studio</a>
+  <span class="top-tag">Self-Measure Kit</span>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <h1>Measure your space in about 5 minutes</h1>
+    <p>Answer a few questions, add photos, and you get a clean summary the shop can quote from — no site visit needed for a first price.</p>
+  </div>
+
+  <div class="progress" aria-hidden="true">
+    <div class="progress-bar"><i id="progressFill"></i></div>
+    <p class="progress-label" id="progressLabel">Step 1 of 6</p>
+  </div>
+
+  <form id="kitForm" novalidate>
+
+    <!-- Step 1: space -->
+    <section class="step active" data-step="1">
+      <h2>1. What are we measuring?</h2>
+      <div class="cards" role="radiogroup" aria-label="Space type">
+        <label class="card">
+          <input type="radio" name="space" value="Kitchen">
+          <span class="card-title">Kitchen</span>
+          <span class="card-sub">Cabinets, counters, island</span>
+        </label>
+        <label class="card">
+          <input type="radio" name="space" value="Closet">
+          <span class="card-title">Closet</span>
+          <span class="card-sub">Walk-in or reach-in storage</span>
+        </label>
+        <label class="card">
+          <input type="radio" name="space" value="Mudroom">
+          <span class="card-title">Mudroom</span>
+          <span class="card-sub">Lockers, bench, hooks</span>
+        </label>
+        <label class="card">
+          <input type="radio" name="space" value="Other">
+          <span class="card-title">Other</span>
+          <span class="card-sub">Vanity, laundry, built-ins</span>
+        </label>
+      </div>
+      <p class="error" id="errSpace" hidden>Please pick a space to continue.</p>
+      <div class="step-nav">
+        <span></span>
+        <button type="button" class="btn btn-primary" data-next>Next</button>
+      </div>
+    </section>
+
+    <!-- Step 2: room size -->
+    <section class="step" data-step="2">
+      <h2>2. Room size</h2>
+      <p class="hint">Measure wall to wall, in centimetres (cm). Not sure? A tape measure and 2 minutes is all it takes — round to the nearest cm.</p>
+      <p class="hint helper">Working in feet and inches? 1 ft = 30.48 cm and 1 in = 2.54 cm — so an 8 ft ceiling is 244 cm, a 10 ft wall is 305 cm.</p>
+      <div class="room-diagram" aria-hidden="true">
+        <div class="room-box">
+          <span class="dim dim-top">Length</span>
+          <span class="dim dim-side">Width</span>
+          <span class="wall-tag wt-a">A</span>
+          <span class="wall-tag wt-b">B</span>
+          <span class="wall-tag wt-c">C</span>
+          <span class="wall-tag wt-d">D</span>
+        </div>
+      </div>
+      <div class="fields">
+        <label class="field">
+          <span>Length (cm) — walls A and C</span>
+          <input type="number" id="lenCm" inputmode="decimal" min="50" max="3000" placeholder="e.g. 400">
+          <p class="error field-error" id="err-lenCm" hidden></p>
+        </label>
+        <label class="field">
+          <span>Width (cm) — walls B and D</span>
+          <input type="number" id="widCm" inputmode="decimal" min="50" max="3000" placeholder="e.g. 300">
+          <p class="error field-error" id="err-widCm" hidden></p>
+        </label>
+        <label class="field">
+          <span>Ceiling height (cm)</span>
+          <input type="number" id="heiCm" inputmode="decimal" min="180" max="500" placeholder="e.g. 244">
+          <p class="error field-error" id="err-heiCm" hidden></p>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button type="button" class="btn btn-ghost" data-back>Back</button>
+        <button type="button" class="btn btn-primary" data-next>Next</button>
+      </div>
+    </section>
+
+    <!-- Step 3: walls -->
+    <section class="step" data-step="3">
+      <h2>3. Wall by wall</h2>
+      <p class="hint">Tick the walls where you want cabinets or storage, then count the doors, windows and obstacles on each one. Wall lengths come from your room size: A and C = length, B and D = width.</p>
+      <div id="wallList"></div>
+      <p class="error" id="errWalls" hidden>Pick at least one wall with cabinets or storage — the cabinet run and price range come from these walls.</p>
+      <div class="step-nav">
+        <button type="button" class="btn btn-ghost" data-back>Back</button>
+        <button type="button" class="btn btn-primary" data-next>Next</button>
+      </div>
+    </section>
+
+    <!-- Step 4: photos -->
+    <section class="step" data-step="4">
+      <h2>4. Photos of the space</h2>
+      <p class="hint">One photo per wall helps the shop more than measurements alone. Stand in the corners and shoot wide.</p>
+      <label class="photo-drop" for="photoInput">
+        <strong>Add photos</strong>
+        <span>Tap to choose from your phone or computer</span>
+      </label>
+      <input type="file" id="photoInput" accept="image/*" multiple hidden>
+      <div class="photo-grid" id="photoGrid"></div>
+      <p class="privacy-note">In this demo photos stay on your device — they are only previewed here and are never uploaded. In the live version they attach to your summary for the shop.</p>
+      <div class="step-nav">
+        <button type="button" class="btn btn-ghost" data-back>Back</button>
+        <button type="button" class="btn btn-primary" data-next>Next</button>
+      </div>
+    </section>
+
+    <!-- Step 5: style -->
+    <section class="step" data-step="5">
+      <h2>5. Style choices</h2>
+      <h3 class="sub-title">Finish level — this sets your price range</h3>
+      <div class="cards cards-3" role="radiogroup" aria-label="Finish level">
+        <label class="card"><input type="radio" name="level" value="standard" checked><span class="card-title">Standard</span><span class="card-sub">Everyday materials, clean build</span></label>
+        <label class="card"><input type="radio" name="level" value="premium"><span class="card-title">Premium</span><span class="card-sub">Upgraded materials and hardware</span></label>
+        <label class="card"><input type="radio" name="level" value="luxury"><span class="card-title">Luxury</span><span class="card-sub">Top materials, all the details</span></label>
+      </div>
+      <h3 class="sub-title">Door style</h3>
+      <div class="cards cards-3" role="radiogroup" aria-label="Door style">
+        <label class="card"><input type="radio" name="door" value="Shaker"><span class="card-title">Shaker</span><span class="card-sub">Classic framed look</span></label>
+        <label class="card"><input type="radio" name="door" value="Flat / slab"><span class="card-title">Flat / slab</span><span class="card-sub">Clean and modern</span></label>
+        <label class="card"><input type="radio" name="door" value="Open shelving"><span class="card-title">Open shelving</span><span class="card-sub">No doors, all display</span></label>
+      </div>
+      <h3 class="sub-title">Finish</h3>
+      <div class="cards cards-3" role="radiogroup" aria-label="Finish">
+        <label class="card"><input type="radio" name="finish" value="Painted white"><span class="card-title">Painted white</span><span class="card-sub">Bright and safe</span></label>
+        <label class="card"><input type="radio" name="finish" value="Natural wood"><span class="card-title">Natural wood</span><span class="card-sub">Warm grain showing</span></label>
+        <label class="card"><input type="radio" name="finish" value="Dark / two-tone"><span class="card-title">Dark / two-tone</span><span class="card-sub">Bold contrast</span></label>
+      </div>
+      <h3 class="sub-title">Hardware</h3>
+      <div class="cards cards-3" role="radiogroup" aria-label="Hardware">
+        <label class="card"><input type="radio" name="hardware" value="Matte black"><span class="card-title">Matte black</span></label>
+        <label class="card"><input type="radio" name="hardware" value="Brushed nickel"><span class="card-title">Brushed nickel</span></label>
+        <label class="card"><input type="radio" name="hardware" value="Brass"><span class="card-title">Brass</span></label>
+      </div>
+      <div class="step-nav">
+        <button type="button" class="btn btn-ghost" data-back>Back</button>
+        <button type="button" class="btn btn-primary" data-next>Next</button>
+      </div>
+    </section>
+
+    <!-- Step 6: contact -->
+    <section class="step" data-step="6">
+      <h2>6. Where should the quote go?</h2>
+      <div class="fields">
+        <label class="field">
+          <span>Your name</span>
+          <input type="text" id="cName" autocomplete="name" placeholder="e.g. Jordan Lee">
+          <p class="error field-error" id="errName" hidden></p>
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" id="cEmail" autocomplete="email" placeholder="you@example.com">
+          <p class="error field-error" id="errEmail" hidden></p>
+        </label>
+        <label class="field">
+          <span>Phone (optional)</span>
+          <input type="tel" id="cPhone" autocomplete="tel" placeholder="e.g. 416-555-0123">
+        </label>
+        <label class="field">
+          <span>Best time to reach you</span>
+          <select id="cTime">
+            <option value="Anytime">Anytime</option>
+            <option value="Weekday mornings">Weekday mornings</option>
+            <option value="Weekday evenings">Weekday evenings</option>
+            <option value="Weekends">Weekends</option>
+            <option value="Email only">Email only</option>
+          </select>
+        </label>
+        <label class="field field-wide">
+          <span>Anything else? (optional)</span>
+          <textarea id="cNotes" rows="3" placeholder="Timeline, must-keeps, the fridge that has to fit…"></textarea>
+        </label>
+      </div>
+      <div class="step-nav">
+        <button type="button" class="btn btn-ghost" data-back>Back</button>
+        <button type="button" class="btn btn-primary" id="btnSummary">Build my summary</button>
+      </div>
+    </section>
+
+    <!-- Result -->
+    <section class="step" data-step="7" id="resultStep">
+      <h2>Your quote-ready summary</h2>
+      <div class="summary" id="summaryPanel"></div>
+      <div class="result-actions">
+        <button type="button" class="btn btn-primary" id="btnCopy">Copy summary</button>
+        <button type="button" class="btn btn-ghost" id="btnDownload">Download summary (.txt)</button>
+      </div>
+      <p class="copied" id="copiedMsg" hidden>Copied — paste it anywhere.</p>
+      <p class="live-note">In the live version this summary lands in the shop's Foxuma inbox, with your photos attached — the shop quotes from it and replies to you directly.</p>
+      <div class="step-nav">
+        <button type="button" class="btn btn-ghost" data-back>Back and edit</button>
+        <a class="btn btn-ghost" href="https://marksong0917.github.io/demo/">See the shop side — Foxuma demo</a>
+      </div>
+    </section>
+
+  </form>
+</main>
+
+<footer class="foot">
+  <p>Self-Measure Kit demo · Maple Works Studio is a sample shop · All prices shown are sample prices from the demo rate card, for demo only — not any real shop's pricing.</p>
+  <p><a href="https://marksong0917.github.io/">← Mark Song — portfolio</a> &nbsp;·&nbsp; <a href="https://marksong0917.github.io/demo/">Try the Foxuma demo →</a></p>
+</footer>
+
+<script src="script.js?v=2"></script>
+</body>
+</html>
